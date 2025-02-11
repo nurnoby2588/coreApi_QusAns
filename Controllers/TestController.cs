@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using coreApi_QusAns.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace coreApi_QusAns.Controllers
 {
@@ -20,6 +21,13 @@ namespace coreApi_QusAns.Controllers
                 status= "success"
             });
         }
-
+        [HttpPost(Name ="SaveName")]
+        public IActionResult SaveName([FromBody] BaseQuestion baseQuestion) {
+            return Ok(new
+            {
+                output = baseQuestion.Title,
+                status = "success"
+            });
+        }
     }
 }

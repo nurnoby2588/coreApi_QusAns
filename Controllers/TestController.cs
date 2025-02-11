@@ -15,9 +15,10 @@ namespace coreApi_QusAns.Controllers
 
         public IActionResult employName()
         {
+            string connString = DBConnection.getDBConstring();
             return Ok( new
             {
-                name = "nurnoby" , 
+                output = connString, 
                 status= "success"
             });
         }

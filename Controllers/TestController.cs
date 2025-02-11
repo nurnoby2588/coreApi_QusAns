@@ -6,10 +6,10 @@ namespace coreApi_QusAns.Controllers
     [Route("/api/[controller]/[Action]")]
     public class TestController : Controller
     {
-        [HttpGet (Name ="QtyProjectName")]
-        public IActionResult QtyProjectName()
+        [HttpGet (Name ="ListQuestion")]
+        public IActionResult ListQuestion(string category)
         {
-            return Ok("success");
+            return Ok("List Question category "+category);
         }
         [HttpGet(Name ="employName")]
 

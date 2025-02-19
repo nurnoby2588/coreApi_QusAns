@@ -27,7 +27,8 @@
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            _logger.LogError(exception, "An unexpected error occurred");
+           // _logger.LogError(exception, "An unexpected error occurred");
+           ErrorLog.SaveErrorLog("GlobalSction",exception.ToString());
 
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsJsonAsync("");

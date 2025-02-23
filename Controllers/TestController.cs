@@ -8,8 +8,9 @@ namespace coreApi_QusAns.Controllers
     public class TestController : Controller
     {
         [HttpGet (Name ="ListQuestion")]
-        public IActionResult ListQuestion([Required]string category)
+        public IActionResult ListQuestion([FromBody]BaseQuestion baseQuestion, string category)
         {
+            
             return Ok("List Question category "+category);
         }
         [HttpGet(Name ="employName")]
@@ -28,7 +29,7 @@ namespace coreApi_QusAns.Controllers
         public IActionResult SaveName([FromBody] BaseQuestion baseQuestion) {
             return Ok(new
             {
-                output = baseQuestion.Title,
+                output = baseQuestion.Question,
                 status = "success"
             });
         }

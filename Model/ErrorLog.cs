@@ -14,13 +14,14 @@ namespace coreApi_QusAns.Model
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = "dbo.spOst_lstMember";
+            cmd.CommandText = "dbo.spErrorLog";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Clear();
 
             cmd.Parameters.Add(new SqlParameter("@EventRaiseScreen", formScreen));
             cmd.Parameters.Add(new SqlParameter("@ErrorDec", ErrorDec));
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        
             cmd.CommandTimeout = 0;
 
 

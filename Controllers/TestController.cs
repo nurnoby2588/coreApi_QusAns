@@ -1,5 +1,6 @@
 ﻿using coreApi_QusAns.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace coreApi_QusAns.Controllers
 {
@@ -7,7 +8,7 @@ namespace coreApi_QusAns.Controllers
     public class TestController : Controller
     {
         [HttpGet (Name ="ListQuestion")]
-        public IActionResult ListQuestion(string category)
+        public IActionResult ListQuestion([Required]string category)
         {
             return Ok("List Question category "+category);
         }
@@ -15,6 +16,7 @@ namespace coreApi_QusAns.Controllers
 
         public IActionResult employName()
         {
+          
             string connString = DBConnection.getDBConstring();
             return Ok( new
             {
@@ -31,4 +33,6 @@ namespace coreApi_QusAns.Controllers
             });
         }
     }
+
+    
 }

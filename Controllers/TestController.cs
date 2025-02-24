@@ -50,6 +50,18 @@ namespace coreApi_QusAns.Controllers
                 output = singleQuestion,
             });
         }
+        [HttpDelete("questionDelete")]
+          public IActionResult DeleteQuestion([Required] int questionId) { 
+           bool result = BaseQuestion.deleteQuestion(questionId);
+            return Ok(result);
+        }
+
+        [HttpPatch ("QuesNo")]
+        public IActionResult UpdateQustion([Required][FromBody] BaseQuestion baseQuestion)
+        {
+            bool result = BaseQuestion.updateQuestion(baseQuestion);
+            return Ok(result);
+        }
     }
 
     

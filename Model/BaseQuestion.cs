@@ -116,6 +116,54 @@ namespace coreApi_QusAns.Model
 
             return null;
         }
+        public static bool deleteQuestion(int QuestionID)
+        {
+            DataTable dataTable = new DataTable();
+            string ConnString = DBConnection.getDBConstring();
+
+            using (SqlConnection connection = new SqlConnection(ConnString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.sp_deleteQuestion", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@QuestionID", QuestionID));
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dataTable);
+                }
+            }
+            int rowsAffect = dataTable.Rows.Count;
+            return rowsAffect > 0;
+
+            
+        }public static bool updateQuestion(BaseQuestion baseQuestion)
+        {
+            DataTable dataTable = new DataTable();
+            string ConnString = DBConnection.getDBConstring();
+
+            using (SqlConnection connection = new SqlConnection(ConnString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.sp_updateQuestion", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@QuestionID", baseQuestion.QuestionID));
+                    cmd.Parameters.Add(new SqlParameter("@Question", baseQuestion.Question));
+                    cmd.Parameters.Add(new SqlParameter("@MakeBy", baseQuestion.MakeBy));
+                    
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dataTable);
+                }
+            }
+            int rowsAffect = dataTable.Rows.Count;
+            return rowsAffect > 0;
+
+            
+        }
+
+
 
     }
 }

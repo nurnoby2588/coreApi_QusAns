@@ -19,7 +19,7 @@ namespace coreApi_QusAns.Model
         public string? MakeBy { get; set; } 
 
         [DataMember (Order =3)]
-        public DateTime MakeDate { get; set; }
+        public DateTime? MakeDate { get; set; }
 
                 
 
@@ -62,7 +62,7 @@ namespace coreApi_QusAns.Model
                                  Category = p.Field<string>("Category"),
                                  Question = p.Field<string>("Question"),
                                  MakeBy = p.Field<string>("MakeBy"),
-                                 MakeDate = p.Field<DateTime>("MakeDate"),
+                                 MakeDate = p.Field<DateTime?>("MakeDate"),
                                 
 
                              }).ToList();
@@ -81,5 +81,41 @@ namespace coreApi_QusAns.Model
             return lstQuestion;
 
         }
+
+        public static BaseQuestion? singleQuestion(int QuestionID)
+        {
+            DataTable dataTable = new DataTable();
+            string ConnString = DBConnection.getDBConstring();
+
+            using (SqlConnection connection = new SqlConnection(ConnString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.sp_singleQuestion", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@QuestionID", QuestionID));
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            if (dataTable.Rows.Count > 0)
+            {
+                var p = dataTable.Rows[0];
+
+                return new BaseQuestion
+                {
+                    QuestionID = p.Field<int>("QuestionID"),
+                    Category = p.Field<string>("Category"),
+                    Question = p.Field<string>("Question"),
+                    MakeBy = p.Field<string>("MakeBy"),
+                    MakeDate = p.IsNull("MakeDate") ? null : p.Field<DateTime?>("MakeDate")
+                };
+            }
+
+            return null;
+        }
+
     }
 }

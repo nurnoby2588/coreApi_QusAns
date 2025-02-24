@@ -7,6 +7,13 @@ namespace coreApi_QusAns.Controllers
     [Route("/api/[controller]/[Action]")]
     public class TestController : Controller
     {
+        //private readonly BaseQuestion _baseQuestion;
+
+        //public TestController(BaseQuestion baseQuestion)
+        //{
+        //    _baseQuestion = baseQuestion;
+        //}
+
         [HttpGet (Name ="ListQuestion")]
         public IActionResult ListQuestion([FromBody]BaseQuestion baseQuestion, string category)
         {
@@ -25,12 +32,22 @@ namespace coreApi_QusAns.Controllers
                 status= "success"
             });
         }
-        [HttpPost(Name ="SaveName")]
-        public IActionResult SaveName([FromBody] BaseQuestion baseQuestion) {
+        [HttpPost(Name ="QuestionList")]
+        public IActionResult QuestionList() {
+           
+            List<BaseQuestion> baseQuestions = BaseQuestion.listQuestion();
             return Ok(new
             {
-                output = baseQuestion.Question,
+                output = baseQuestions,
                 status = "success"
+            });
+        }
+        [HttpGet("quesNo")]
+        public IActionResult QuestionList([Required] int questionId) {
+            BaseQuestion? singleQuestion = BaseQuestion.singleQuestion(questionId);
+            return Ok(new
+            {
+                output = singleQuestion,
             });
         }
     }
